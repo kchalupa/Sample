@@ -1,4 +1,4 @@
 # hello-world
 First repository
 
-Hello, this is my first repository.  Hope everything is ok.
+Hey this is Kyle here.  Having a good time with github.  Hope everything is working out.
