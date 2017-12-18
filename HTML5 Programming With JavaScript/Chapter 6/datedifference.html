@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Date Difference</title>
+    <script lang="JavaScript">
+
+      function compareDateTimes()
+      {
+        var thisDate = new Date('2/1/2013');
+        var thatDate = new Date('3/1/2013');
+
+        document.getElementById('dateDifference').innerHTML = 'Difference between thisDate and thatDate:' + ((thatDate - thisDate) / 86400000) + ' Days';
+        
+        var thisTime = new Date(2013, 2, 1, 2, 30);
+        var thatTime = new Date(2013, 2, 1, 2, 51);
+        
+        document.getElementById('timeDifference').innerHTML = 'Difference between thisTime and thatTime ' + ((thatTime - thisTime) / 60000) + ' Minutes';
+      }
+    </script>
+  </head>
+  <body onload="compareDateTimes();">
+    <h1>Difference Between Dates</h1>
+    <p id="dateDifference"></p>
+    
+    <h1>Difference Between Times</h1>
+    <p id="timeDifference"></p>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Validating Data</title>
+    <script lang="JavaScript">
+      
+      /**
+       * Checks the validity of the password.
+       */
+      function validatePassword(password, password2)
+      {
+        if(password.value != password2.value || password.value == '' || password2.value == '')
+        {
+          password2.setCustomValidity('The password is incorrect.');
+        }
+        else
+        {
+          password2.setCustomValidity('');
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+      <fieldset>
+        <div>
+          <label>Name: </label>
+          <input id="myName" type="text" placeholder="Type Your Name" maxlength="100" required x-moz-errormessage="Type Your Name" />
+        </div>
+        <div>
+          <label>Telephone Number: </label>
+          <input id="myTelephone" type="text" placeholder="Type Your Telephone Number" pattern="(/d/d/d) /d/d/d-/d/d/d/d" required x-moz-errormessage="Type Your Number as (XXX) XXX-XXXX" />
+        </div>
+        <div>
+          <label>Password: </label>
+          <input id="myPassword" type="text" placeholder="Type Your Password" maxlength="100" required x-moz-errormessage="Type Your Password" />
+        </div>
+        <div>
+          <label>Password 2: </label>
+          <input id="myPassword2" type="text" placeholder="Confirm Your Password" maxlength="100" required x-moz-errormessage="Type Your Password" onfocus="validatePassword(document.getElementById('myPassword'), this);" oninput="validatePassword(document.getElementById('myPassword'), this);" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <div>
+          <input id="Submit" type="submit" value="Submit Data" />
+        </div>
+      </fieldset>      
+    </form>
+
+  </body>
+</html>

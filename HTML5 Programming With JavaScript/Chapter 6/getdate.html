@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Get Date</title>
+    <script lang="JavaScript">
+      function writeDate()
+      {
+        var today = new Date();
+        var dates = document.getElementById('dates');
+        
+        dates.innerHTML = '<p>Full Date/Time: ' + today.toLocaleString() + '<br />' + 
+          'Full Date: ' + today.toLocaleDateString() + '<br />' + 
+          'Date Only: ' + today.toDateString() + '<br />' +
+          'Full Time: ' + today.toLocaleTimeString() + '<br />' +
+          'Time Only: ' + today.toTimeString() +
+          
+          '<p>Custom Date: (m/d/y): ' + (today.getMonth() + 1) + '/' +
+          today.getDate() + '/' + today.getFullYear() + '<br />' +
+          'Custom Time: (h:m:s:ms): ' + today.getHours() + ':' + today.getMinutes() + ':' + 
+          today.getSeconds() + ':' + today.getMilliseconds() + '</p>';
+      }
+    </script>
+  </head>
+  <body onload="writeDate();">
+    <h1>Today's Date/Time</h1>
+    <p id="dates"></p>
+  </body>  
+</html>
