@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Basic Calculator</title>
+    <script lang="JavaScript">
+
+    /**
+     * Adds the two numbers that the user entered.
+     */
+    function doAdd()
+    {
+      var value1;
+      var value2;
+      var result;
+
+      // Get the numbers that the user entered.
+      value1 = new Number(document.getElementById('value1').value);
+      value2 = new Number(document.getElementById('value2').value);
+
+      result = value1 + value2;
+
+      document.getElementById('result').value = result;
+    } // doAdd()
+
+
+    /**
+     * Subtracts the two numbers that the user entered.
+     */
+    function doSub()
+    {
+      var value1;
+      var value2;
+      var result;
+
+      // Get the numbers that the user entered.
+      value1 = new Number(document.getElementById('value1').value);
+      value2 = new Number(document.getElementById('value2').value);
+
+      result = value1 - value2;
+
+      document.getElementById('result').value = result;
+    } // doASub()
+
+
+    /**
+     * Multiplies the two numbers that the user entered.
+     */
+    function doMul()
+    {
+      var value1;
+      var value2;
+      var result;
+
+      // Get the numbers that the user entered.
+      value1 = new Number(document.getElementById('value1').value);
+      value2 = new Number(document.getElementById('value2').value);
+
+      result = value1 * value2;
+
+      document.getElementById('result').value = result;
+    } // doMul()
+
+
+    /**
+     * Divides the two numbers that the user entered.
+     */
+    function doDiv()
+    {
+      var value1;
+      var value2;
+      var result;
+
+      // Get the numbers that the user entered.
+      value1 = new Number(document.getElementById('value1').value);
+      value2 = new Number(document.getElementById('value2').value);
+
+      result = value1 / value2;
+
+      document.getElementById('result').value = result;
+    } // doAdd()
+
+    </script>
+  </head>
+  <body>
+    <h1>Performing Simple Math</h1>
+
+    <div id="error">
+      <span id="value1Error">The value you provided for Value 1 is invalid.  Please enter a number.</span>
+      <span id="value2Error">The value you provided for Value 1 is invalid.  Please enter a number.</span>
+    </div>
+
+    <p>
+      Value One:
+      <input id="value1" type="text" value="Enter a value." />
+    </p>
+    <p>
+      Value Two:
+      <input id="value2" type="text" value="Enter a value." />
+    </p>
+    <p>
+      Result:
+      <input id="result" type="text" value=""  />
+    </p>
+
+    <input type="button" value="+" onclick="doAdd();" />
+    <input type="button" value="-" onclick="doSub();" />
+    <input type="button" value="*" onclick="doMul();" />
+    <input type="button" value="/" onclick="doDiv();" />
+    
+  </body>
+</html>

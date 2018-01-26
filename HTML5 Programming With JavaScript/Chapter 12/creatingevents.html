@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Creating Events</title>
+    <script lang="JavaScript">
+
+      var specialEvent = new CustomEvent(
+        "SpecialMessage",
+        {
+          detail:
+          {
+            message: "Hello There",
+            time: new Date()
+          },
+
+          bubbles:true,
+          cancelable:true
+        });
+
+        specialEvent.detail.message = 'A new message!';
+
+        function assignEvent()
+        {
+          // Find the label.
+          var label = document.getElementById('customLabel');
+
+          // Assign an event to the object.
+          label.addEventListener('SpecialMessage', handleEvent, false);
+        }
+
+        function fireEvent()
+        {
+          // Obtain the object reference.
+          var label = document.getElementById('customLabel');
+
+          // Fire the event.
+          label.dispatchEvent(specialEvent);
+        }
+
+        function handleEvent()
+        {
+          // Display the event information.
+          document.getElementById('customLabel').innerHTML = 
+            'Control: ' + event.currentTarget.id + '<br />' +
+            'Message: ' + event.detail.message + '<br />' +
+            'Time Sent: ' + event.detail.time.toTimeString();
+        }
+
+    </script>
+  </head>
+  <body onload="assignEvent();">
+    <h1>Creating a Custom Event</h1>
+    <p><input type="button" value="Fire Custom Event" onClick="fireEvent();" /></p>
+    <p><label id="customLabel"></label></p>
+  </body>
+</html>

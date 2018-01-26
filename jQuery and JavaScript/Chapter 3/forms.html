@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Dynamic Forms</title>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Contact Info:</legend>
+        Name: <input type="text" name="name" /><br />
+        Address: <input type="text" name="address" /><br />
+        <select name="state">
+          <option value="UT">Utah</option>
+          <option value="NY">New York</option>
+          <option value="CA">California</option>
+        </select>
+      </fieldset><p />
+
+      <input type="radio" id="maleRadio" name="gender" value="male" />
+      <label for="maleRadio">Male</label>
+      <input type="radio" id="femaleRadio" name="gender" value="female" />
+      <label for="femaleRadio">Female</label><br />
+
+      <textarea rows="10" cols="30">comments</textarea><br />
+
+      <input type="checkbox" id="newsCheck" name="news" value="news">
+        <lael for="newsCheck">I would like to subscribe to the newsletter.</lael>
+      </input><br />
+
+      <input type="submit" value="Submit">Submit</input>
+      <input type="reset" value="Reset">Submit</input>
+    </form>
+  </body>
+</html>

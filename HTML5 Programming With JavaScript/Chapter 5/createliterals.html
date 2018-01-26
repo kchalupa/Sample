@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Working With Object Literals</title>
+    <script lang="JavaScript">
+    
+      var customerData = {
+        Name: "Jodie Holmes",
+        Age: 32,
+        Birthday: new Date("01/15/1981")
+      }
+
+      function displayCustomer()
+      {
+        var customerDiv = document.getElementById('customerDiv');
+        customerDiv.innerHTML = '<span> The customer\'s name is: ' + customerData.Name + 
+          ' age is: ' + customerData.Age + ' and birthdate is: ' + customerData.Birthday.toDateString() + '</span>';
+      }
+
+    </script>
+  </head>
+  <body onload="displayCustomer();">
+    <h1>Create and Use Object Literals</h1>
+    <div id="customerDiv">
+    </div>
+  </body>  
+</html>

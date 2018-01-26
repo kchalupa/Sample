@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Appointment>
+@using kchalupa.Web.HeartMedicalCenter.Models;
+
+@{
+    ViewBag.Title = "Appointments";
+}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name:</th><th>Birth Date:</th><th>Is New Patient:</th><th>Insurance Provider:</th><th>Member Number:</th><th>Appointment Date:</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(Appointment appointment in @Model)
+    {
+      <tr>
+        <td>@appointment.Name</td><td>@appointment.Birthdate.ToString("MM/dd/yyyy")</td><td>@appointment.NewPatient</td><td>@appointment.InsuranceProvider</td><td>@appointment.MemberNumber</td><td>@appointment.AppointmentDate.DateTime</td><td>@Html.ActionLink("Edit", "Appointment", appointment)</td><td>@Html.ActionLink("Delete", "Delete", appointment)</td >
+      </tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Simple for/in loop</title>
+    <script lang="JavaScript">
+    
+      /**
+       * Defines a customer literal.
+       */
+      function customer(firstName, lastName, age)
+      {
+        // Add the propeties.
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Age = age;
+      }
+
+
+      /**
+       * Processes the customer.
+       */
+      function processCustomer()
+      {
+        var myCustomer = new customer('Josh', 'Adams', 49);
+
+        var output = '<table>';
+        output += '<tr>';
+
+        for(property in myCustomer)
+        {
+          output += '<td>' + property + '</td>';
+        }
+
+        output += '</tr><tr>';
+
+        for(property in myCustomer)
+        {
+          output += '<td>' + myCustomer[property] + '</td>';
+        }
+
+        output += '</tr></table>';
+        document.getElementById('result').innerHTML = output;
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>Using the for/in Loop.</h1>
+    
+    <p><input type="button" value="Display Customers" onClick="processCustomer();" /></p>
+    
+    <p><div id="result" /></p>
+  </body>
+</html>

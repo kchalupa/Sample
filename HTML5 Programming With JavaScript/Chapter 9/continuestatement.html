@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Using the Continue statement.</title>
+    <script lang="JavaScript">
+    
+      /**
+       * Filters the array.
+       */
+      function filterArray()
+      {
+        // myArray.
+        var myArray = new Array( 'Red', 'Orange', 'Yellow', 1, 'Green', true, 'Blue');
+
+        // Create an array to contain the filtered results.
+        var filteredArray = new Array();
+
+        // Show the original unfiltered array.
+        displayArray(myArray, 'original');
+
+        // Filter the data.
+        for(var i = 0; i < myArray.length; ++i)
+        {
+          // Check for the correct data type.
+          if(typeof(myArray[i]) != 'string')
+          {
+            // Go to the next data item.
+            continue;
+          }
+
+          // Add the matching item to the array.
+          filteredArray.push(myArray[i]);
+        }
+
+        // Show the filtered data.
+        displayArray(filteredArray, 'filtered');
+      }
+
+
+      /**
+       * Display the array.
+       */
+      function displayArray(array, displayId)
+      {
+        // Create the output string.
+        var displayString = '<ul>';
+
+        // Build the display string.
+        for(var i=0;i<array.length;++i)
+        {
+          displayString += '<li>' + array[i] + '</li>';
+        }
+
+        // Complete the list.
+        displayString += '</ul>';
+
+        // Display the data.
+        document.getElementById(displayId).innerHTML = displayString;
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>Using the Continue Statement</h1>
+    
+    <input type="button" value="Filter the Data" onClick="filterArray();" />
+
+    <div id="original">
+    </div>
+
+    <div id="filtered">
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Nested Loops</title>
+    <script lang="JavaScript">
+    
+      function productsTable()
+      {
+        var result = '<table><tr>';
+
+        for(i=0;i<=10;++i)
+        {
+          if(i == 0)
+          {
+            result += '<th />';
+          }
+          else
+          {
+            result += '<th>' + i + '</th>';
+          }
+        }
+
+        result += '</tr>';
+
+        for(i=1;i<=10;++i)
+        {
+          // Create the row, the first column is the header.
+          result += '<tr><th>' + i + '</th>';
+
+          for(j=1;j<=10;++j)
+          {
+            result += '<td>' + (i * j) + '</td>';
+          }
+
+          result += '</tr>';
+        }
+
+        document.getElementById('results').innerHTML = result;
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>Nested Loops - Multiplication Table</h1>
+
+    <p><input type="button" value="Display Multiplication Table" onclick="productsTable();" /></p>
+
+    <p><div id="results" /></p>
+  </body>
+</html>

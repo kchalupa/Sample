@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Xml Menu</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script lang="Javascript">
+
+      // The menu items.
+      var menuData;
+
+      /**
+       * Build the mneu when the window loads.
+       */
+      $(window).load(function()
+      {
+        // Create a connection to the file.
+        //var connect = new XMLHttpRequest();
+
+        // Define which file to open and read the request.
+        //connect.open('GET', 'file:///C:/Users/Kyle/Sample/HTML5%20Programming%20With%20JavaScript/Chapter%2021/menu.xml');
+        //connect.setRequestHeader('Content-Type', 'text/xml');
+        //connect.send(null);
+
+        // Place the response in an Xml document.
+        //var response = connect.responseXML;
+
+        // Get the root node.
+        //var menuEntries = response.documentElement;
+
+        var xml = '<?xml version="1.0"?> \
+            <menu><entry id="Home" caption="Home" target="#" /> \
+            <entry id="Products" caption="Products" target="#"> \
+            <entry id="ProductsWidgets" caption="Widgets" target="#"> \
+            <entry id="ProductsWidgets1" caption="Widget 1" target="#" /> \
+            <entry id="ProductsWidgets2" caption="Widget 2" target="#" /> \
+            </entry> <entry id="ProductsGizmos" caption="Gizmos" target="#"> \
+            <entry id="ProductsGizmos1" caption="Gizmo 1" target="#" /> \
+            <entry id="ProductsGizmos2" caption="Gizmo 2" target="#" /> \
+            <entry id="ProductsGizmos3" caption="Gizmo 2" target="#" /> \
+            </entry></entry> \
+            <entry id="About" caption="About" target="#"> \
+            <entry id="AboutLocation" caption="Location" target="#" /> \
+            <entry id="AboutContact" caption="Contact Us" target="#" /> \
+            <entry id="AboutSupport" caption="Customer Support" target="#" /> \
+            </entry></menu>'
+
+        var doc = new XMLDocument();
+        doc.load(xml);
+
+        // Start from the top down.
+        if(doc.documentElement.children.length > 0)
+          ProcessEntries(doc.documentElement.children);
+
+        // Make the menu entries public.
+        $("#Menu").append(menuData);
+
+        // Create the menu onscreen.
+        $("#Menu").menu();
+      });
+
+
+      /**
+       * Processes the entries.
+       */
+      function processEntries(nodes)
+      {
+        for(var i=0;i<nodes.length;++i)
+        {
+          // Store this node and add it to the menu.
+          var thisNode = nodes[i];
+
+          menuData += '<li id=\"' + $(thisNode).attr('id') + '>' + '<a href=\"' + 
+            $(thisNode).attr('target') + '\">' + $(thisNode).attr('caption') + '</a>';
+
+          if($(thisNode).children.length > 0)
+          {
+            menuData += '<ul>';
+            processEntries(thisNode.children);
+            menuData += '</ul>';
+          }
+
+          // End the current menu node.
+          menuData += '</li>';
+        }
+
+        // Return to the caller.
+        return;
+      }
+
+    </script>
+  </head>
+  <body>
+    
+  </body>
+</html>
