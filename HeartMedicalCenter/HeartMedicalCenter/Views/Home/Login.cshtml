@@ -1,0 +1,23 @@
+﻿@model kchalupa.Web.HeartMedicalCenter.Models.Authentication
+
+@{
+    ViewBag.Title = "StaffLogin";
+}
+
+@using (Html.BeginForm())
+{
+  <table class="formTable">
+    <tr>
+      <td>@Html.Label("Username: ")</td>
+      <td>@Html.TextBoxFor((p) => p.Username, new { @class = "text" })</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Password: ")</td>
+      <td>@Html.PasswordFor((p) => p.Password, new { @class = "text" })</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input class="btn btn-danger" type="reset" value="Reset" /> <input type="submit" class="btn btn-success" value="Submit" /></td>
+    </tr>
+  </table>
+}

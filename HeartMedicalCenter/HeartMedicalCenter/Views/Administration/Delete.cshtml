@@ -1,0 +1,84 @@
+﻿@model Appointment
+@using kchalupa.Web.HeartMedicalCenter.Models
+
+@{
+  ViewBag.Title = "Delete";
+}
+
+<h2>Delete the following Appointment?</h2>
+
+<br />
+
+<h3>Appointment </h3>
+<table class="table table-striped formTable">
+  <tbody>
+    <tr>
+      <td>@Html.Label("Id:")</td>
+      <td>@Html.Label(@Model.Id.ToString())</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Name:")</td>
+      <td>@Html.Label(@Model.Name)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Address:")</td>
+      <td>@Html.Label(@Model.Address)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("City:")</td>
+      <td>@Html.Label(@Model.City)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("State:")</td>
+      <td>@Html.Label(@Model.State)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Zip Code:")</td>
+      <td>@Html.Label(@Model.ZipCode)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("BirthDate:")</td>
+      <td>@Html.Label(@Model.Birthdate.ToString("MM/dd/yyyy"))</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Insurance Provider:")</td>
+      <td>@Html.Label(@Model.InsuranceProvider)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Member Number:")</td>
+      <td>@Html.Label(@Model.MemberNumber)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Appointment Date:")</td>
+      <td>@Html.Label(@Model.AppointmentDate.ToString("o"))</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Reason For Appointment:")</td>
+      <td>@Html.Label(@Model.ReasonForAppointment)</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<h3>Patient History </h3>
+<table class="table table-striped formTable">
+  <tbody>
+    <tr>
+      <td>@Html.Label("Conditions:")</td>
+      <td>@Html.Label(@Model.PatientsHistory.Conditions)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Medications:")</td>
+      <td>@Html.Label(@Model.PatientsHistory.Medications)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Allergies:")</td>
+      <td>@Html.Label(@Model.PatientsHistory.Allergies)</td>
+    </tr>
+    <tr>
+      <td>@Html.Label("Physicians:")</td>
+      <td>@Html.Label(@Model.PatientsHistory.Physicians)</td>
+    </tr>
+  </tbody>
+</table>
