@@ -162,6 +162,21 @@ namespace kchalupa.Web.HeartMedicalCenter.Models
     private string m_zipCode = string.Empty;
 
     /// <summary>
+    /// The home phone number.
+    /// </summary>
+    private string m_homePhone = string.Empty;
+
+    /// <summary>
+    /// The cell phone number.
+    /// </summary>
+    private string m_cellPhone = string.Empty;
+
+    /// <summary>
+    /// Allow contact via text?
+    /// </summary>
+    private bool m_allowText = false;
+
+    /// <summary>
     /// The patient's birthdate.
     /// </summary>
     private DateTimeOffset m_birthdate = DateTimeOffset.Now;
@@ -169,7 +184,7 @@ namespace kchalupa.Web.HeartMedicalCenter.Models
     /// <summary>
     /// Is this the patient's first visit?
     /// </summary>
-    private bool m_isNewPatient = true;
+    private bool m_isNewPatient = false;
 
     /// <summary>
     /// The insurance provider.
@@ -284,6 +299,36 @@ namespace kchalupa.Web.HeartMedicalCenter.Models
       get { return m_zipCode; }
       set { m_zipCode = value; }
     } // ZipCode
+
+
+    /// <summary>
+    /// Gets or sets the home phone number.
+    /// </summary>
+    public string HomePhone
+    {
+      get { return m_homePhone; }
+      set { m_homePhone = value; }
+    } // HomePhone
+
+
+    /// <summary>
+    /// Gets or sets the cell phone number.
+    /// </summary>
+    public string CellPhone
+    {
+      get { return m_cellPhone; }
+      set { m_cellPhone = value; }
+    } // HomePhone
+
+
+    /// <summary>
+    /// Gets or sets whether the patient would allow text communication.
+    /// </summary>
+    public bool AllowText
+    {
+      get { return m_allowText; }
+      set { m_allowText = value; }
+    } // AllowText
 
 
     /// <summary>

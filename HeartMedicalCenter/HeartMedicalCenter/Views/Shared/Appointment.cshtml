@@ -5,90 +5,116 @@
   ViewBag.Title = "Appointment";
 }
 
-<h2>Please fill out the following form to make your appointment.</h2>
+<script lang="JavaScript">
+  function newPatientClick(event)
+  {
+    if (event.target.checked)
+    {
+      $('.patientHistory').css('display', 'table-row');
+    }
+    else
+    {
+      $('.patientHistory').css('display', 'none');
+    }
+  }
+</script>
 
-<h3>Appointment </h3>
-<table class="table table-striped formTable">
-  <tbody>
-    <tr>
-      <td>@Html.Label("Id:")</td>
-      <td>@Html.Label(@Model.Id.ToString())</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Name:")</td>
-      <td>@Html.TextBoxFor((p) => p.Name)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Address:")</td>
-      <td>@Html.TextBoxFor((p) => p.Address)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("City:")</td>
-      <td>@Html.TextBoxFor((p) => p.City)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("State:")</td>
-      <td>@Html.TextBoxFor((p) => p.State)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Zip Code:")</td>
-      <td>@Html.TextBoxFor((p) => p.ZipCode)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("BirthDate:")</td>
-      <td>@Html.EditorFor((p) => p.Birthdate)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Is This A New Patient:")</td>
-      <td>@Html.CheckBoxFor((p) => p.IsNewPatient, new { id = "myCheckBox", onClick = "" })</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Insurance Provider:")</td>
-      <td>@Html.DropDownListFor((p) => p.InsuranceProvider, Appointment.GetInsuranceProviders())</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Member Number:")</td>
-      <td>@Html.TextBoxFor((p) => p.MemberNumber)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Appointment Date:")</td>
-      <td>@Html.EditorFor((p) => p.AppointmentDate)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Reason For Appointment:")</td>
-      <td>@Html.TextAreaFor((p) => p.ReasonForAppointment)</td>
-    </tr>
-  </tbody>
-</table>
-
-<div id="patientHistory" style="display: none;">
-  <h3>Patient History </h3>
+<div>
+  <p><h3>Appointment</h3></p>
   <table class="table table-striped formTable">
     <tbody>
       <tr>
+        <td>@Html.Label("Id:")</td>
+        <td>@Html.Label(@Model.Id.ToString())</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Name:")</td>
+        <td>@Html.TextBoxFor((p) => p.Name)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Address:")</td>
+        <td>@Html.TextBoxFor((p) => p.Address)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("City:")</td>
+        <td>@Html.TextBoxFor((p) => p.City)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("State:")</td>
+        <td>@Html.TextBoxFor((p) => p.State)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Zip Code:")</td>
+        <td>@Html.TextBoxFor((p) => p.ZipCode)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Home Phone:")</td>
+        <td>@Html.TextBoxFor((p) => p.HomePhone)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Cell Phone:")</td>
+        <td>@Html.TextBoxFor((p) => p.CellPhone)&nbsp;&nbsp;&nbsp;@Html.CheckBoxFor((p) => p.AllowText)&nbsp;@Html.Label("Allow Text Message Communication")</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("BirthDate:")</td>
+        <td>@Html.EditorFor((p) => p.Birthdate)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Is This A New Patient:")</td>
+        <td>@Html.CheckBoxFor((p) => p.IsNewPatient, new { onClick = "newPatientClick(event);" })</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Insurance Provider:")</td>
+        <td>@Html.DropDownListFor((p) => p.InsuranceProvider, Appointment.GetInsuranceProviders())</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Member Number:")</td>
+        <td>@Html.TextBoxFor((p) => p.MemberNumber)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Appointment Date:")</td>
+        <td>@Html.EditorFor((p) => p.AppointmentDate)</td>
+      </tr>
+      <tr>
+        <td>@Html.Label("Reason For Appointment:")</td>
+        <td>@Html.TextAreaFor((p) => p.ReasonForAppointment)</td>
+      </tr>
+      <tr class="patientHistory">
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="patientHistory">
         <td>@Html.Label("Conditions:")</td>
         <td>@Html.TextAreaFor((p) => p.PatientsHistory.Conditions)</td>
       </tr>
-      <tr>
+      <tr class="patientHistory">
         <td>@Html.Label("Medications:")</td>
         <td>@Html.TextAreaFor((p) => p.PatientsHistory.Medications)</td>
       </tr>
-      <tr>
+      <tr class="patientHistory">
         <td>@Html.Label("Allergies:")</td>
         <td>@Html.TextAreaFor((p) => p.PatientsHistory.Allergies)</td>
       </tr>
-      <tr>
+      <tr class="patientHistory">
         <td>@Html.Label("Physicians:")</td>
         <td>@Html.TextAreaFor((p) => p.PatientsHistory.Physicians)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="reset" value="Reset" />&nbsp;<input type="submit" value="Submit" /></td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<table>
-  <tbody>
-    <tr>
-      <td></td><td><input type="reset" value="Reset" /> <input type="submit" value="Submit" /></td>
-    </tr>
-  </tbody>
-</table>

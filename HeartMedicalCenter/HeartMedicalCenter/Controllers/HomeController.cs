@@ -68,7 +68,7 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     public ActionResult Appointment()
     {
       return View(new Appointment());
-    } // Edit()
+    } // Appointment()
 
 
     /// <summary>
@@ -90,7 +90,7 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       {
         return View(appointment);
       }
-    } // Edit( appointment )
+    } // Appointment( appointment )
 
 
     /// <summary>
@@ -102,6 +102,24 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     {
       return View(appointment);
     } // Confirmation()
+
+
+    /// <summary>
+    /// Gets the view of the physcians.
+    /// </summary>
+    public ActionResult Physicians()
+    {
+      return View();
+    } // Physicians()
+
+
+    /// <summary>
+    /// Gets the view for contact to the facility.
+    /// </summary>
+    public ActionResult Contadct()
+    {
+      return View();
+    } // Contact()
 
 
     /// <summary>
