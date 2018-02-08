@@ -200,7 +200,7 @@
     <Content Include="Content\doctor21.png" />
     <Content Include="Content\doctor22.png" />
     <Content Include="Content\doctor23.png" />
-    <Content Include="Content\myStyles.css" />
+    <Content Include="Content\seperator.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\wedding.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -213,6 +213,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\AGENCYB.TTF" />
+    <Content Include="fonts\AGENCYR.TTF" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -255,6 +257,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Administration\Delete.cshtml" />
+    <Content Include="Views\Home\Physicians.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
