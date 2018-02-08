@@ -11,7 +11,7 @@
     <script src="~/Scripts/myFunctions.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,13 +30,24 @@
               </ul>
             </div>
         </div>
+    </div>*@
+
+    <div>
+      <div class="logo">
+        @Html.ActionLink("The Heart Family Medical Center", "Index", "Home")
+      </div>
+      <div class="link">
+        @Html.ActionLink("Make An Appointment", "Appointment", "Home")
+        @Html.ActionLink("Directions", "Directions", "Home")
+        @Html.ActionLink("Staff Portal", "Index", "Administration")
+      </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - The Heart Family Medical Center</p>
+            <p>&copy; @DateTime.Now.Year - @Html.ActionLink("The Heart Family Medical Center", "Index", "Administration")</p>
         </footer>
     </div>
 
