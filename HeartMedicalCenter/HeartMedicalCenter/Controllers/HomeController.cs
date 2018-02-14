@@ -51,13 +51,13 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
 
 
     /// <summary>
-    /// Displays the directions to our locations.
+    /// Displays information, directions to/about the facility.
     /// </summary>
     /// <returns></returns>
-    public ActionResult Directions()
+    public ActionResult Facility()
     {
       return View();
-    } // Directions()
+    } // Facility()
     
 
     /// <summary>
