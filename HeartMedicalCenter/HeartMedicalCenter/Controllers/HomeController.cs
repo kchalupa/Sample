@@ -51,16 +51,6 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
 
 
     /// <summary>
-    /// Displays information, directions to/about the facility.
-    /// </summary>
-    /// <returns></returns>
-    public ActionResult Facility()
-    {
-      return View();
-    } // Facility()
-    
-
-    /// <summary>
     /// Get view to make the appointment.
     /// </summary>
     /// <returns></returns>
@@ -96,8 +86,6 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     /// <summary>
     /// Displays the confirmation screen.
     /// </summary>
-    /// <param name="appt"></param>
-    /// <returns></returns>
     public ActionResult Confirmation(Appointment appointment)
     {
       return View(appointment);
@@ -105,21 +93,21 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
 
 
     /// <summary>
-    /// Gets the view of the physcians.
+    /// Gets information about the facility.
     /// </summary>
-    public ActionResult Physicians()
+    public ActionResult Facility()
     {
       return View();
-    } // Physicians()
+    } // Facility()
 
 
     /// <summary>
-    /// Gets the view for contact to the facility.
+    /// Gets the emergency contact information.
     /// </summary>
-    public ActionResult Contadct()
+    public ActionResult Emergency()
     {
       return View();
-    } // Contact()
+    } // Emergency
 
 
     /// <summary>

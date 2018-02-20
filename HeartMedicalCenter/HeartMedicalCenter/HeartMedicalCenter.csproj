@@ -258,7 +258,7 @@
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Administration\Delete.cshtml" />
     <Content Include="Views\Home\Physicians.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Emergency.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
