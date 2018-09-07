@@ -149,6 +149,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -200,8 +202,14 @@
     <Content Include="Content\doctor21.png" />
     <Content Include="Content\doctor22.png" />
     <Content Include="Content\doctor23.png" />
+    <Content Include="Content\patient_000.jpg" />
+    <Content Include="Content\patient_001.jpg" />
+    <Content Include="Content\patient_002.jpg" />
+    <Content Include="Content\patient_003.jpg" />
+    <Content Include="Content\selected.png" />
     <Content Include="Content\seperator.png" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\unselected.png" />
     <Content Include="Content\wedding.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -215,7 +223,24 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="fonts\AGENCYB.TTF" />
     <Content Include="fonts\AGENCYR.TTF" />
+    <EntityDeploy Include="HeartMedicalCenterModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HeartMedicalCenterModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="HeartMedicalCenterModel.edmx.diagram">
+      <DependentUpon>HeartMedicalCenterModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="HeartMedicalCenterModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HeartMedicalCenterModel.edmx</DependentUpon>
+      <LastGenOutput>HeartMedicalCenterModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HeartMedicalCenterModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HeartMedicalCenterModel.edmx</DependentUpon>
+      <LastGenOutput>HeartMedicalCenterModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -226,19 +251,38 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appointment.cs">
+      <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Authentication.cs">
+      <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\AppointmentRepository.cs" />
-    <Compile Include="Infrastructure\DatabaseGateway.cs" />
-    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="HeartMedicalCenterModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeartMedicalCenterModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HeartMedicalCenterModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HeartMedicalCenterModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeartMedicalCenterModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Authentication.cs" />
+    <Compile Include="PatientHistory.cs">
+      <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,14 +295,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Facility.cshtml" />
     <Content Include="Views\Shared\Appointment.cshtml" />
     <Content Include="Views\Home\Confirmation.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Administration\Delete.cshtml" />
-    <Content Include="Views\Home\Physicians.cshtml" />
-    <Content Include="Views\Home\Emergency.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -268,6 +309,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

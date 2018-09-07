@@ -1,11 +1,44 @@
-﻿@model Appointment
-@using kchalupa.Web.HeartMedicalCenter.Models
+﻿@model kchalupa.Web.HeartMedicalCenter.Appointment
+@using kchalupa.Web.HeartMedicalCenter
 
 @{
   ViewBag.Title = "Appointment";
+
+  var insuranceProviders = new List<SelectListItem>();
+
+  insuranceProviders.Add(new SelectListItem() { Text = "Aetna", Value = "Aetna" });
+  insuranceProviders.Add(new SelectListItem() { Text = "Blue Cross Blue Shield", Value = "Blue Cross Blue Shield" });
+  insuranceProviders.Add(new SelectListItem() { Text = "Fidelis Care", Value = "Fidelis Care" });
+  insuranceProviders.Add(new SelectListItem() { Text = "Health First", Value = "Health First" });
+  insuranceProviders.Add(new SelectListItem() { Text = "UnitedHealthCare", Value = "UnitedHealthCare" });
+
 }
 
 <script lang="JavaScript">
+
+  /**
+   * Handles the patient birthdate being clicked.  Display the date picker.
+   */
+  function patientbBirthDateClick(event)
+  {
+    alert('patient birthdate clicked');
+    $("patientBirthDate").datepicker();
+  } // patientBirthDateClick( event )
+
+
+  /**
+   * Handles the appointment date being clicked.  Display the date picker.
+   */
+  function appointmentDateClick(event)
+  {
+    alert('appointmentDate clicked');
+    $("appointmentDate").datepicker();
+  } // appointmentDateClick( event )
+
+
+  /**
+   * Handles the new patient checkbox being clicked.  We want to hide the requisite rows if this is a return, or show if new patient.
+   */
   function newPatientClick(event)
   {
     if (event.target.checked)
@@ -16,7 +49,8 @@
     {
       $('.patientHistory').css('display', 'none');
     }
-  }
+  } // newPatientClick( event )
+
 </script>
 
 <div>
@@ -61,11 +95,11 @@
       </tr>
       <tr>
         <td>@Html.Label("Cell Phone:")</td>
-        <td>@Html.TextBoxFor((p) => p.CellPhone)&nbsp;&nbsp;&nbsp;@Html.CheckBoxFor((p) => p.AllowText)&nbsp;@Html.Label("Allow Text Message Communication")</td>
+        <td>@Html.TextBoxFor((p) => p.CellPhone)&nbsp;&nbsp;&nbsp;@Html.CheckBoxFor((p) => p.AllowTextContact)&nbsp;@Html.Label("Allow Text Message Communication")</td>
       </tr>
       <tr>
         <td>@Html.Label("BirthDate:")</td>
-        <td>@Html.EditorFor((p) => p.Birthdate)</td>
+        <td>@Html.EditorFor((p) => p.PatientBirthDate, new { id = "patientBirthDate", onclick = "patientbBirthDateClick(event);" })</td>
       </tr>
       <tr>
         <td></td>
@@ -77,15 +111,14 @@
       </tr>
       <tr>
         <td>@Html.Label("Insurance Provider:")</td>
-        <td>@Html.DropDownListFor((p) => p.InsuranceProvider, Appointment.GetInsuranceProviders())</td>
-      </tr>
+        <td>@Html.DropDownListFor((p) => p.InsuranceProvider, insuranceProviders)
       <tr>
         <td>@Html.Label("Member Number:")</td>
         <td>@Html.TextBoxFor((p) => p.MemberNumber)</td>
       </tr>
       <tr>
         <td>@Html.Label("Appointment Date:")</td>
-        <td>@Html.EditorFor((p) => p.AppointmentDate)</td>
+        <td>@Html.EditorFor((p) => p.AppointmentDate, new { id = "appointmentDate", onclick = "appointmentDateClick(event);" })</td>
       </tr>
       <tr>
         <td>@Html.Label("Reason For Appointment:")</td>
@@ -97,19 +130,19 @@
       </tr>
       <tr class="patientHistory">
         <td>@Html.Label("Conditions:")</td>
-        <td>@Html.TextAreaFor((p) => p.PatientsHistory.Conditions)</td>
+        <td>@Html.TextAreaFor((p) => p.PatientHistory.Conditions)</td>
       </tr>
       <tr class="patientHistory">
         <td>@Html.Label("Medications:")</td>
-        <td>@Html.TextAreaFor((p) => p.PatientsHistory.Medications)</td>
+        <td>@Html.TextAreaFor((p) => p.PatientHistory.Medications)</td>
       </tr>
       <tr class="patientHistory">
         <td>@Html.Label("Allergies:")</td>
-        <td>@Html.TextAreaFor((p) => p.PatientsHistory.Allergies)</td>
+        <td>@Html.TextAreaFor((p) => p.PatientHistory.Allergies)</td>
       </tr>
       <tr class="patientHistory">
         <td>@Html.Label("Physicians:")</td>
-        <td>@Html.TextAreaFor((p) => p.PatientsHistory.Physicians)</td>
+        <td>@Html.TextAreaFor((p) => p.PatientHistory.Physicians)</td>
       </tr>
       <tr>
         <td></td>

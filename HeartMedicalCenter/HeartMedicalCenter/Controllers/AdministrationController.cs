@@ -5,35 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 using kchalupa.Web.HeartMedicalCenter.Infrastructure;
-using kchalupa.Web.HeartMedicalCenter.Models;
 
 namespace kchalupa.Web.HeartMedicalCenter.Controllers
 {
   [Authorize]
   public class AdministrationController : Controller
   {
-
-    #region fields
-
-    /// <summary>
-    /// The appointment repository.
-    /// </summary>
-    private IRepository<Appointment> m_appointmentsRepository = null;
-
-    #endregion
-
-    #region construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="appointmentsRepository">The appointments repository.</param>
-    public AdministrationController(IRepository<Appointment> appointmentsRepository)
-    {
-      m_appointmentsRepository = appointmentsRepository;
-    } // AdministrationController( appointmentsRepository )
-
-    #endregion
 
     #region methods
 
@@ -43,7 +20,10 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     /// <returns></returns>
     public ActionResult Index()
     {
-      return View(m_appointmentsRepository.Items);
+      using (var entities = new HeartMedicalCenterEntities())
+      {
+        return View(entities.Appointments);
+      }
     } // Index()
 
 
@@ -62,7 +42,12 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       {
         if (ModelState.IsValid)
         {
-          m_appointmentsRepository.Update(appointment);
+          using (var entities = new HeartMedicalCenterEntities())
+          {
+            // The object was updated, so we simply tell the object to persist the changge.
+            entities.SaveChanges();
+          }
+
           return Redirect(returnUrl);
         }
         else
@@ -85,8 +70,14 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       }
       else
       {
-        m_appointmentsRepository.Delete(appointment);
-        return Redirect("Index");
+        using (var entities = new HeartMedicalCenterEntities())
+        {
+          entities.Appointments.Remove(appointment);
+        }
+
+
+          //m_appointmentsRepository.Delete(appointment);
+          return Redirect("Index");
       }
     } // Delete( appointment )
 

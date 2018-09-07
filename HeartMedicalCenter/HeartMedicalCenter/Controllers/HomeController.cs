@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
-using kchalupa.Web.HeartMedicalCenter.Models;
-using kchalupa.Web.HeartMedicalCenter.Infrastructure;
 using System.Web.Security;
 
 namespace kchalupa.Web.HeartMedicalCenter.Controllers
@@ -15,28 +14,6 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
   /// </summary>
   public class HomeController : Controller
   {
-
-    #region fields
-
-    /// <summary>
-    /// The appointments repository.
-    /// </summary>
-    private IRepository<Appointment> m_appointmentsRepository = null;
-
-    #endregion
-
-    #region construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="apptRepo"></param>
-    public HomeController(IRepository<Appointment> apptRepo)
-    {
-      m_appointmentsRepository = apptRepo;
-    } // HomeController( apptRepo )
-
-    #endregion
 
     #region methods
 
@@ -57,7 +34,11 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     [HttpGet]
     public ActionResult Appointment()
     {
-      return View(new Appointment());
+      // Create appointment and initialize id.
+      Appointment appt = new Appointment();
+      appt.Id = Guid.NewGuid();
+
+      return View(appt);
     } // Appointment()
 
 
@@ -72,7 +53,11 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       if (ModelState.IsValid)
       {
         // Write the appointment to the database.
-        m_appointmentsRepository.Add(appointment);
+        using (var entities = new HeartMedicalCenterEntities())
+        {
+          entities.PatientHistories.Add(appointment.PatientHistory);
+          entities.SaveChanges();
+        }
 
         return Redirect("Confirmation");
       }
@@ -92,29 +77,12 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     } // Confirmation()
 
 
-    /// <summary>
-    /// Gets information about the facility.
-    /// </summary>
-    public ActionResult Facility()
-    {
-      return View();
-    } // Facility()
 
 
     /// <summary>
-    /// Gets the emergency contact information.
+    /// Handles the login.  The database just holds a string and the string is pre-encrypted and sent across the wire for comparison.
     /// </summary>
-    public ActionResult Emergency()
-    {
-      return View();
-    } // Emergency
-
-
-    /// <summary>
-    /// Handles the post and login.
-    /// </summary>
-    /// <param name="auth"></param>
-    /// <returns></returns>
+    /// <param name="auth">Contains the username and password for authentication.</param>
     public ActionResult Login(Authentication auth, string returnUrl)
     {
       if(Request.HttpMethod == "GET")
@@ -123,19 +91,47 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       }
       else
       {
-        // Try to authenticate against the user entered username and password.
-        if (DatabaseGateway.Authenticate(auth.Username, auth.Password))
+        if(ModelState.IsValid)
         {
-          // Set the authentication cookie.
-          FormsAuthentication.SetAuthCookie(auth.Username, true);
-          return Redirect(returnUrl);
+          using (HeartMedicalCenterEntities entities = new HeartMedicalCenterEntities())
+          {
+            string encrypted = Encrypt(auth.Password);
+
+            foreach (Authentication dbAuth in entities.Authentications)
+            {
+              if(dbAuth.Username == auth.Username && dbAuth.Password == encrypted)
+              {
+                FormsAuthentication.SetAuthCookie(auth.Username, true);
+                return Redirect(returnUrl);
+              }
+            }
+          }
         }
-        else
-        {
-          return View(auth);
-        }
+
+        return View(auth);
       }
     } // Login( auth, returnUrl )
+
+
+    /// <summary>
+    /// Encrypts a string to authenticate into the database.
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    private string Encrypt(string authenticate)
+    {
+      SHA512 sha512 = SHA512Managed.Create();
+      byte[] bytes = Encoding.UTF8.GetBytes(authenticate);
+      byte[] hash = sha512.ComputeHash(bytes);
+
+      StringBuilder builder = new StringBuilder();
+      for(int i = 0; i < hash.Length; ++i)
+      {
+        builder.Append(hash[i].ToString("X2"));
+      }
+
+      return builder.ToString();
+    } // Encrypt()
 
     #endregion
 

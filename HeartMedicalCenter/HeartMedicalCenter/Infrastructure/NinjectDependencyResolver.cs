@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 using Ninject;
 using Moq;
-using kchalupa.Web.HeartMedicalCenter.Models;
 
 namespace kchalupa.Web.HeartMedicalCenter.Infrastructure
 {
@@ -68,7 +67,7 @@ namespace kchalupa.Web.HeartMedicalCenter.Infrastructure
     /// </summary>
     private void AddBindings()
     {
-      m_kernel.Bind<IRepository<Appointment>>().To<AppointmentRepository>();
+      // Add the bindings.
     } // AddBindings()
 
     #endregion

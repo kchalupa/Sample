@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Appointment>
-@using kchalupa.Web.HeartMedicalCenter.Models;
 
 @{
     ViewBag.Title = "Appointments";
@@ -15,7 +14,7 @@
     @foreach(Appointment appointment in @Model)
     {
       <tr>
-        <td>@appointment.Name</td><td>@appointment.Birthdate.ToString("MM/dd/yyyy")</td><td>@appointment.NewPatient</td><td>@appointment.InsuranceProvider</td><td>@appointment.MemberNumber</td><td>@appointment.AppointmentDate.DateTime</td><td>@Html.ActionLink("Edit", "Appointment", appointment)</td><td>@Html.ActionLink("Delete", "Delete", appointment)</td >
+        <td>@appointment.Name</td><td>@appointment.PatientBirthDate.ToString("MM/dd/yyyy")</td><td>@appointment.IsNewPatient</td><td>@appointment.InsuranceProvider</td><td>@appointment.MemberNumber</td><td>@appointment.AppointmentDate.Date</td><td>@Html.ActionLink("Edit", "Appointment", appointment)</td><td>@Html.ActionLink("Delete", "Delete", appointment)</td >
       </tr>
     }
   </tbody>

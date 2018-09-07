@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>@ViewBag.Title - The Heart Family Medical Center</title>
-  
+
   <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script src="~/Scripts/modernizr-2.6.2.js"></script>
   <script src="~/Scripts/myFunctions.js"></script>
 </head>
@@ -17,7 +22,7 @@
     <table class="header">
       <tr>
         <td class="logo" width="100%">The Heart Family Medical Center<sup>TM</sup></td>
-        <td class="links" style="white-space: nowrap;">@Html.ActionLink("Home", "Index", "Home")<img src="~/Content/seperator.png" />@Html.ActionLink("Appointment", "Appointment", "Home")<img src="~/Content/seperator.png" />@Html.ActionLink("Facility", "Facility", "Home")<img src="~/Content/seperator.png" />@Html.ActionLink("Emergency", "Emergency", "Home")</td>
+        <td class="links" style="white-space: nowrap;">@Html.ActionLink("Home", "Index", "Home")<img src="~/Content/seperator.png" />@Html.ActionLink("Appointment", "Appointment", "Home")</td>
       </tr>
     </table>
 

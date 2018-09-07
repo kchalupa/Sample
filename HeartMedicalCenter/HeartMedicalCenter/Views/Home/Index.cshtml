@@ -2,6 +2,55 @@
     ViewBag.Title = "Index";
 }
 
+<script lang="JavaScript">
+
+  var patient000 = { Name: 'patient000.png', Text: 'This is Teresa, an avid skydiver.  In 2016 she had a tragic accident and somehow managed to survive.  She is now in rehabilitation and walking short distances.  She is excited to get back up into the saddle and find her next adventure.' };
+  var patient001 = { Name: 'patient001.png', Text: 'Peter was visiting his grandkids on Long Island and disaster struck.  His daughter Jeanine contacted 911 and we responded.  He is now comfortable at home with his grandkids.' };
+  var patient002 = { Name: 'patient002.png', Text: '' };
+  var patient003 = { Name: 'patient003.png', Text: '' };
+
+  // Commands to run when the page starts.
+  window.onload = function ()
+  {
+    onChange(1);
+  };
+
+
+  /**
+   * Handles changing the selected patient image.
+   */
+  function onChange(selectedNumber)
+  {
+    var src = null;
+    var text = null;
+
+    //if (selectedNumber == 1)
+    //{
+    //  src = patient000.Name;
+    //  text = patient000.Text;
+    //}
+    //else if (selectedNumber == 2)
+    //{
+    //  src = patient001.Name;
+    //  text = patient001.Text;
+    //}
+    //else if (selectedNumber == 3)
+    //{
+    //  src = patient002.Name;
+    //  text = patient002.Text;
+    //}
+    //else
+    //{
+    //  src = patient003.Name;
+    //  text = patient003.Text;
+    //}
+
+    document.getElementById('image').src = 'patient000.png';
+    document.getElementById('text').innerHTML = 'This is Teresa, an avid skydiver.  In 2016 she had a tragic accident and somehow managed to survive.  She is now in rehabilitation and walking short distances.  She is excited to get back up into the saddle and find her next adventure.';
+  } // onChange ( selectedIndex )
+
+</script>
+
 <div class="paragraph">
   <p>
     Here at The Heart Medical Center <sup>TM</sup>, we strive to keep you going long enough to experience all of life’s greatest memories.  Every grandfather wants to be healthy enough to dance with his granddaughter at her wedding.  You want to be here for them, we aim to make that happen for you.  With our trained physicians, we are equipped to provide care for a wide range of ailments.
@@ -14,7 +63,10 @@
 <br />
 <br />
 
-<img style="width: 100%; height: auto;" src="~/Content/wedding.png" />
+<div id="imageSelector">
+  <img id="image" style="width: 100%; height: auto;" />
+  <p id="text"></p>
+</div>
 
 <br />
 <br />
@@ -30,7 +82,7 @@
     <tr>
       <td><p>Elizibeth Chen MD</p><div>Our board certified Cardiologist.  She specializes in Cardiogeriatrics; especially Congenital Heart Defect.  She is the author of special computer software that, when combined with our GE CT scanners can quickly diagnose her patients.  Her time is highly sought after.</div></td>
       <td><p>Cynthia Moore MD</p><div>A top-flight surgeon that treats patients suffering from Congenital Heart Defects and Coronary artery Disease.  She and Dr. Chen often coordinate to give our patients the best possible care.  She will see to your individual needs to provide the best possible result.</div></td>
-      <td><p>Benjamin Franklin Chang MD</p><div>He graduated from Greendale Medical School at the top of his class.  An especially talented pulminologist.  With the aid of modern techology, he can reverse the sands of time on your lungs.  Patients are advised to prepare to quit smoking when scheduling an appointment.</div></td>
+      <td><p>Victor Chang MD</p><div>He graduated from Stony Brook Medical School at the top of his class.  An especially talented pulminologist.  With the aid of modern techology, he can reverse the sands of time on your lungs.  Patients are advised to prepare to quit smoking when scheduling an appointment.</div></td>
     </tr>
     <tr>
       <td><img src="~/Content/doctor21.png" style="width: 100%; height: auto;" /></td>
@@ -40,7 +92,7 @@
     <tr>
       <td><p>Peter Smith MD</p><div>Our resident Oncologist, he has teated many patients over the years.  Cancer of the colon is his primary focus, because it took his father's life, he has vowed to combat it and save the lives of his patients.  We will perform a priliminary scan for polyps using our GE equipment.</div></td>
       <td><p>Lisa Clarke MD</p><div>The chief Radiologist, she works alongside Doctors Chen and Smith to acurately diagnose and treat the patients illnesses.  She commands the fleet of GE Medical Imaging Systems and the Kodak CareStream PACS that the facility has purchased.</div></td>
-      <td><p>Sarah Connors RN</p><div>She is one of the best nurses in the state.  She takes great pride in saving the lives of her patients and is constantly up on the latest techniques.  She was an Army medic of ten years and proudly served the nation saving the lives of her comrades.  The facility is better for her service.</div></td>
+      <td><p>Kristin Harris RN</p><div>She is one of the best nurses in the state.  She takes great pride in saving the lives of her patients and is constantly up on the latest techniques.  She was an Army medic of ten years and proudly served the nation saving the lives of her comrades.  The facility is better for her service.</div></td>
     </tr>
   </tbody>
 </table>
