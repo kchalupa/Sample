@@ -28,5 +28,6 @@ namespace kchalupa.Web.HeartMedicalCenter
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Authentication> Authentications { get; set; }
         public virtual DbSet<PatientHistory> PatientHistories { get; set; }
+        public virtual DbSet<AppointmentPatientHistory> AppointmentPatientHistories { get; set; }
     }
 }

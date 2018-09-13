@@ -1,4 +1,4 @@
-﻿@model kchalupa.Web.HeartMedicalCenter.Models.Authentication
+﻿@model kchalupa.Web.HeartMedicalCenter.Authentication
 
 @{
     ViewBag.Title = "StaffLogin";
@@ -8,8 +8,8 @@
 {
   <table class="formTable">
     <tr>
-      <td>@Html.Label("Email: ")</td>
-      <td>@Html.TextBoxFor((p) => p.Email, new { @class = "text" })</td>
+      <td>@Html.Label("Username: ")</td>
+      <td>@Html.TextBoxFor((p) => p.Username, new { @class = "text" })</td>
     </tr>
     <tr>
       <td>@Html.Label("Password: ")</td>
@@ -17,7 +17,7 @@
     </tr>
     <tr>
       <td></td>
-      <td><input class="btn btn-danger" type="reset" value="Reset" /> <input type="submit" class="btn btn-success" value="Submit" /></td>
+      <td><input type="submit" class="btn btn-success" value="Submit" />&nbsp;<input class="btn" type="reset" value="Reset" /></td>
     </tr>
   </table>
 }

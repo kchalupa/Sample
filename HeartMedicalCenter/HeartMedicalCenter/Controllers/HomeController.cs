@@ -15,6 +15,15 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
   public class HomeController : Controller
   {
 
+    #region fields
+
+    /// <summary>
+    /// The database connection layer.
+    /// </summary>
+    private HeartMedicalCenterEntities m_entities = new HeartMedicalCenterEntities();
+
+    #endregion
+
     #region methods
 
     /// <summary>
@@ -31,19 +40,14 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     /// Get view to make the appointment.
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
     public ActionResult Appointment()
     {
-      // Create appointment and initialize id.
-      Appointment appt = new Appointment();
-      appt.Id = Guid.NewGuid();
-
-      return View(appt);
+      return View(new Appointment());
     } // Appointment()
 
 
     /// <summary>
-    /// Handles post of the appointment.
+    /// Handles post of the add appointment.
     /// </summary>
     /// <param name="appointment"></param>
     /// <returns></returns>
@@ -52,12 +56,24 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     {
       if (ModelState.IsValid)
       {
-        // Write the appointment to the database.
-        using (var entities = new HeartMedicalCenterEntities())
+        // Link the appointment and patient history together.  The id on both coming out of the view is {0000-0000...}.
+
+        Guid guid = Guid.NewGuid();
+        appointment.Id = guid;
+        if (appointment.IsNewPatient)
         {
-          entities.PatientHistories.Add(appointment.PatientHistory);
-          entities.SaveChanges();
+          appointment.PatientHistory.Id = guid;
         }
+
+
+        // Write the appointment to the database.
+        if (appointment.IsNewPatient)
+        {
+          m_entities.PatientHistories.Add(appointment.PatientHistory);
+        }
+
+        m_entities.Appointments.Add(appointment);
+        m_entities.SaveChanges();
 
         return Redirect("Confirmation");
       }
@@ -77,8 +93,6 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     } // Confirmation()
 
 
-
-
     /// <summary>
     /// Handles the login.  The database just holds a string and the string is pre-encrypted and sent across the wire for comparison.
     /// </summary>
@@ -93,17 +107,13 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       {
         if(ModelState.IsValid)
         {
-          using (HeartMedicalCenterEntities entities = new HeartMedicalCenterEntities())
+          string encrypted = Encrypt(auth.Password);
+          foreach (Authentication dbAuth in m_entities.Authentications)
           {
-            string encrypted = Encrypt(auth.Password);
-
-            foreach (Authentication dbAuth in entities.Authentications)
+            if(dbAuth.Username == auth.Username && dbAuth.Password == encrypted)
             {
-              if(dbAuth.Username == auth.Username && dbAuth.Password == encrypted)
-              {
-                FormsAuthentication.SetAuthCookie(auth.Username, true);
-                return Redirect(returnUrl);
-              }
+              FormsAuthentication.SetAuthCookie(auth.Username, true);
+              return Redirect(returnUrl);
             }
           }
         }
@@ -120,17 +130,13 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
     [NonAction]
     private string Encrypt(string authenticate)
     {
-      SHA512 sha512 = SHA512Managed.Create();
-      byte[] bytes = Encoding.UTF8.GetBytes(authenticate);
-      byte[] hash = sha512.ComputeHash(bytes);
-
-      StringBuilder builder = new StringBuilder();
-      for(int i = 0; i < hash.Length; ++i)
+      using (SHA384 sha384 = SHA384Managed.Create())
       {
-        builder.Append(hash[i].ToString("X2"));
-      }
+        byte[] bytes = Encoding.UTF8.GetBytes(authenticate);
+        byte[] hash = sha384.ComputeHash(bytes);
 
-      return builder.ToString();
+        return System.Convert.ToBase64String(hash);
+      }
     } // Encrypt()
 
     #endregion

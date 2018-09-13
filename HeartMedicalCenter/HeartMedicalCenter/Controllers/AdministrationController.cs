@@ -12,57 +12,50 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
   public class AdministrationController : Controller
   {
 
+    #region fields
+
+    /// <summary>
+    /// The database connection layer.
+    /// </summary>
+    private HeartMedicalCenterEntities m_entities = new HeartMedicalCenterEntities();
+
+    #endregion
+
     #region methods
 
     /// <summary>
     /// Produces a record of all appointments.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Displays the list of appointments.</returns>
     public ActionResult Index()
     {
-      using (var entities = new HeartMedicalCenterEntities())
-      {
-        return View(entities.Appointments);
-      }
+      return View(m_entities.Appointments.ToArray());
     } // Index()
 
 
     /// <summary>
-    /// Display the editing view and commit the results.
+    /// Allows a receptionist to make changes to the appointment or view it.
     /// </summary>
-    /// <param name="appointment">The appointment to edit.</param>
-    /// <returns></returns>
-    public ActionResult Appointment(Appointment appointment, string returnUrl)
+    /// <returns>The view if HTTPGet otherwise we return the user to the index page.</returns>
+    public ActionResult EditAppointment(Appointment appointment)
     {
-      if(Request.HttpMethod == "GET")
+      if (Request.HttpMethod == "GET")
       {
         return View(appointment);
       }
       else
       {
-        if (ModelState.IsValid)
-        {
-          using (var entities = new HeartMedicalCenterEntities())
-          {
-            // The object was updated, so we simply tell the object to persist the changge.
-            entities.SaveChanges();
-          }
+        m_entities.SaveChanges();
 
-          return Redirect(returnUrl);
-        }
-        else
-        {
-          return View(appointment);
-        }
+        return Redirect("Index");
       }
-    } // Appointment( appointment, returnUrl )
+    } // Edit( appointment )
 
 
     /// <summary>
-    /// Deletes the appointment.
+    /// Deletes the appointment, for example if the patient wants to cancel it.
     /// </summary>
-    /// <param name="appointment"></param>
-    public ActionResult Delete(Appointment appointment)
+    public ActionResult DeleteAppointment(Appointment appointment)
     {
       if(Request.HttpMethod == "GET")
       {
@@ -70,14 +63,16 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
       }
       else
       {
-        using (var entities = new HeartMedicalCenterEntities())
+        if(appointment.IsNewPatient)
         {
-          entities.Appointments.Remove(appointment);
+          // If the appointment has a patient history associated with it, delete it first.
+          m_entities.PatientHistories.Remove(m_entities.PatientHistories.Where(p => p.Id == appointment.Id).First());
         }
 
+        m_entities.Appointments.Remove(m_entities.Appointments.Where(p => p.Id == appointment.Id).First());
+        m_entities.SaveChanges();
 
-          //m_appointmentsRepository.Delete(appointment);
-          return Redirect("Index");
+        return Redirect("Index");
       }
     } // Delete( appointment )
 

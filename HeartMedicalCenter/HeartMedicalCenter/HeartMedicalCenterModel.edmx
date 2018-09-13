@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="HEARTMEDICALCENTERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="AllowTextContact" Type="bit" Nullable="false" />
+          <Property Name="PatientBirthDate" Type="date" Nullable="false" />
+          <Property Name="IsNewPatient" Type="bit" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="MemberNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AppointmentDate" Type="date" Nullable="false" />
+          <Property Name="ReasonForAppointment" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
         <EntityType Name="Authentication">
           <Key>
             <PropertyRef Name="Username" />
@@ -24,34 +44,124 @@
           <Property Name="Allergies" Type="nvarchar" MaxLength="127" />
           <Property Name="Physicians" Type="nvarchar" MaxLength="127" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HeartMedicalCenter.dbo.AppointmentPatientHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AppointmentPatientHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="ZipCode" />
+            <PropertyRef Name="HomePhone" />
+            <PropertyRef Name="CellPhone" />
+            <PropertyRef Name="AllowTextContact" />
+            <PropertyRef Name="PatientBirthDate" />
+            <PropertyRef Name="IsNewPatient" />
+            <PropertyRef Name="InsuranceProvider" />
+            <PropertyRef Name="MemberNumber" />
+            <PropertyRef Name="AppointmentDate" />
+            <PropertyRef Name="ReasonForAppointment" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="AllowTextContact" Type="bit" Nullable="false" />
+          <Property Name="PatientBirthDate" Type="date" Nullable="false" />
+          <Property Name="IsNewPatient" Type="bit" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="MemberNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AppointmentDate" Type="date" Nullable="false" />
+          <Property Name="ReasonForAppointment" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Conditions" Type="nvarchar" MaxLength="127" />
+          <Property Name="Medications" Type="nvarchar" MaxLength="127" />
+          <Property Name="Allergies" Type="nvarchar" MaxLength="127" />
+          <Property Name="Physicians" Type="nvarchar" MaxLength="127" />
+        </EntityType>
+        <Association Name="fk_heartmedicalcenter_appointments_id">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="PatientHistory" Type="Self.PatientHistory" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientHistory">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HEARTMEDICALCENTERModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authentication" EntityType="Self.Authentication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientHistory" EntityType="Self.PatientHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppointmentPatientHistory" EntityType="Self.AppointmentPatientHistory" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AppointmentPatientHistory].[Id] AS [Id], 
+    [AppointmentPatientHistory].[Name] AS [Name], 
+    [AppointmentPatientHistory].[Address] AS [Address], 
+    [AppointmentPatientHistory].[City] AS [City], 
+    [AppointmentPatientHistory].[State] AS [State], 
+    [AppointmentPatientHistory].[ZipCode] AS [ZipCode], 
+    [AppointmentPatientHistory].[HomePhone] AS [HomePhone], 
+    [AppointmentPatientHistory].[CellPhone] AS [CellPhone], 
+    [AppointmentPatientHistory].[AllowTextContact] AS [AllowTextContact], 
+    [AppointmentPatientHistory].[PatientBirthDate] AS [PatientBirthDate], 
+    [AppointmentPatientHistory].[IsNewPatient] AS [IsNewPatient], 
+    [AppointmentPatientHistory].[InsuranceProvider] AS [InsuranceProvider], 
+    [AppointmentPatientHistory].[MemberNumber] AS [MemberNumber], 
+    [AppointmentPatientHistory].[AppointmentDate] AS [AppointmentDate], 
+    [AppointmentPatientHistory].[ReasonForAppointment] AS [ReasonForAppointment], 
+    [AppointmentPatientHistory].[Conditions] AS [Conditions], 
+    [AppointmentPatientHistory].[Medications] AS [Medications], 
+    [AppointmentPatientHistory].[Allergies] AS [Allergies], 
+    [AppointmentPatientHistory].[Physicians] AS [Physicians]
+    FROM [dbo].[AppointmentPatientHistory] AS [AppointmentPatientHistory]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_heartmedicalcenter_appointments_id" Association="Self.fk_heartmedicalcenter_appointments_id">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="PatientHistory" EntitySet="PatientHistory" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HEARTMEDICALCENTERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HEARTMEDICALCENTEREntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="HEARTMEDICALCENTERModel.Appointment" />
+          <EntitySet Name="Authentications" EntityType="HEARTMEDICALCENTERModel.Authentication" />
+          <EntitySet Name="PatientHistories" EntityType="HEARTMEDICALCENTERModel.PatientHistory" />
+          <EntitySet Name="AppointmentPatientHistories" EntityType="HEARTMEDICALCENTERModel.AppointmentPatientHistory" />
+          <AssociationSet Name="fk_heartmedicalcenter_appointments_id" Association="HEARTMEDICALCENTERModel.fk_heartmedicalcenter_appointments_id">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="PatientHistory" EntitySet="PatientHistories" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HomePhone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CellPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="AllowTextContact" Type="Boolean" Nullable="false" />
           <Property Name="PatientBirthDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsNewPatient" Type="Boolean" Nullable="false" />
-          <Property Name="InsuranceProvider" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MemberNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="MemberNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ReasonForAppointment" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="PatientHistory" Relationship="Self.fk_heartmedicalcenter_appointments_id" FromRole="Appointments" ToRole="PatientHistory" />
+          <Property Name="ReasonForAppointment" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PatientHistory" Relationship="HEARTMEDICALCENTERModel.fk_heartmedicalcenter_appointments_id" FromRole="Appointment" ToRole="PatientHistory" />
         </EntityType>
         <EntityType Name="Authentication">
           <Key>
@@ -71,13 +181,51 @@
           <Property Name="Medications" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
           <Property Name="Allergies" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
           <Property Name="Physicians" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Appointment" Relationship="Self.fk_heartmedicalcenter_appointments_id" FromRole="PatientHistory" ToRole="Appointments" />
+          <NavigationProperty Name="Appointment" Relationship="HEARTMEDICALCENTERModel.fk_heartmedicalcenter_appointments_id" FromRole="PatientHistory" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="AppointmentPatientHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="ZipCode" />
+            <PropertyRef Name="HomePhone" />
+            <PropertyRef Name="CellPhone" />
+            <PropertyRef Name="AllowTextContact" />
+            <PropertyRef Name="PatientBirthDate" />
+            <PropertyRef Name="IsNewPatient" />
+            <PropertyRef Name="InsuranceProvider" />
+            <PropertyRef Name="MemberNumber" />
+            <PropertyRef Name="AppointmentDate" />
+            <PropertyRef Name="ReasonForAppointment" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="AllowTextContact" Type="Boolean" Nullable="false" />
+          <Property Name="PatientBirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsNewPatient" Type="Boolean" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="MemberNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReasonForAppointment" Type="String" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Conditions" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Medications" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Allergies" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Physicians" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_heartmedicalcenter_appointments_id">
-          <End Role="Appointments" Type="Self.Appointment" Multiplicity="1" />
-          <End Role="PatientHistory" Type="Self.PatientHistory" Multiplicity="0..1" />
+          <End Type="HEARTMEDICALCENTERModel.Appointment" Role="Appointment" Multiplicity="1" />
+          <End Type="HEARTMEDICALCENTERModel.PatientHistory" Role="PatientHistory" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Appointments">
+            <Principal Role="Appointment">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PatientHistory">
@@ -85,21 +233,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HEARTMEDICALCENTEREntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
-          <EntitySet Name="Authentications" EntityType="Self.Authentication" />
-          <EntitySet Name="PatientHistories" EntityType="Self.PatientHistory" />
-          <AssociationSet Name="fk_heartmedicalcenter_appointments_id" Association="Self.fk_heartmedicalcenter_appointments_id">
-            <End Role="Appointments" EntitySet="Appointments" />
-            <End Role="PatientHistory" EntitySet="PatientHistories" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HEARTMEDICALCENTERModelStoreContainer" CdmEntityContainer="HEARTMEDICALCENTEREntities1">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="HEARTMEDICALCENTERModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="ReasonForAppointment" ColumnName="ReasonForAppointment" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="MemberNumber" ColumnName="MemberNumber" />
+                <ScalarProperty Name="InsuranceProvider" ColumnName="InsuranceProvider" />
+                <ScalarProperty Name="IsNewPatient" ColumnName="IsNewPatient" />
+                <ScalarProperty Name="PatientBirthDate" ColumnName="PatientBirthDate" />
+                <ScalarProperty Name="AllowTextContact" ColumnName="AllowTextContact" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Authentications">
             <EntityTypeMapping TypeName="HEARTMEDICALCENTERModel.Authentication">
               <MappingFragment StoreEntitySet="Authentication">
@@ -113,11 +273,36 @@
           <EntitySetMapping Name="PatientHistories">
             <EntityTypeMapping TypeName="HEARTMEDICALCENTERModel.PatientHistory">
               <MappingFragment StoreEntitySet="PatientHistory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Conditions" ColumnName="Conditions" />
-                <ScalarProperty Name="Medications" ColumnName="Medications" />
-                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
                 <ScalarProperty Name="Physicians" ColumnName="Physicians" />
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+                <ScalarProperty Name="Medications" ColumnName="Medications" />
+                <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentPatientHistories">
+            <EntityTypeMapping TypeName="HEARTMEDICALCENTERModel.AppointmentPatientHistory">
+              <MappingFragment StoreEntitySet="AppointmentPatientHistory">
+                <ScalarProperty Name="Physicians" ColumnName="Physicians" />
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+                <ScalarProperty Name="Medications" ColumnName="Medications" />
+                <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+                <ScalarProperty Name="ReasonForAppointment" ColumnName="ReasonForAppointment" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="MemberNumber" ColumnName="MemberNumber" />
+                <ScalarProperty Name="InsuranceProvider" ColumnName="InsuranceProvider" />
+                <ScalarProperty Name="IsNewPatient" ColumnName="IsNewPatient" />
+                <ScalarProperty Name="PatientBirthDate" ColumnName="PatientBirthDate" />
+                <ScalarProperty Name="AllowTextContact" ColumnName="AllowTextContact" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

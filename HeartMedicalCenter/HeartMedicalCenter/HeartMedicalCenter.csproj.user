@@ -16,6 +16,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
+    <WebStackScaffolding_DbContextTypeFullName>kchalupa.Web.HeartMedicalCenter.HeartMedicalCenterEntities</WebStackScaffolding_DbContextTypeFullName>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

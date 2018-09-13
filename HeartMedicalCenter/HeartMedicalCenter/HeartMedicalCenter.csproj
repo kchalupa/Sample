@@ -254,6 +254,9 @@
     <Compile Include="Appointment.cs">
       <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppointmentPatientHistory.cs">
+      <DependentUpon>HeartMedicalCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authentication.cs">
@@ -295,11 +298,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Shared\Appointment.cshtml" />
     <Content Include="Views\Home\Confirmation.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
-    <Content Include="Views\Administration\Delete.cshtml" />
+    <Content Include="Views\Administration\DeleteAppointment.cshtml" />
+    <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\Shared\_Appointment.cshtml" />
+    <Content Include="Views\Administration\EditAppointment.cshtml" />
+    <Content Include="Views\Home\Appointment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
