@@ -16,7 +16,6 @@ textarea {
     max-width: 280px;
 }
 
-
 .header {
   background-color: white;
   text-align: left;
@@ -32,7 +31,7 @@ textarea {
 
 .links {
   font-family: 'Agency FB';
-  font-size: 14pt;
+  font-size: 16pt;
   font-weight: normal;
   color: darkblue;
 }

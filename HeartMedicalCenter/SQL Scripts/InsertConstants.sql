@@ -1,0 +1,6 @@
+USE HeartMedicalCenter
+GO
+
+INSERT INTO [Appointment] ([Id], [Name], [Address], [City], [State], [ZipCode], [HomePhone], [CellPhone], [AllowTextContact], [PatientBirthDate], [IsNewPatient], [InsuranceProvider], [MemberNumber], [AppointmentDate], [ReasonForAppointment]) VALUES ('bad7d521-a7f8-403f-9228-0f5be9c37bfe', 'John Doe', '123 Mockingbird Lane', 'Buffallo', 'New York', '14203', '(555) 555-5550', '(555) 555-5450', 'False', '31-Jan-81 2:30:00 PM', 'False', 'Aetna', '533-45945-001', '01-Jan-18 12:00:00 AM', 'First visit.')
+INSERT INTO [Appointment] ([Id], [Name], [Address], [City], [State], [ZipCode], [HomePhone], [CellPhone], [AllowTextContact], [PatientBirthDate], [IsNewPatient], [InsuranceProvider], [MemberNumber], [AppointmentDate], [ReasonForAppointment]) VALUES ('e46aab6b-08c6-48e6-a649-61b53ae02fae', 'Jane Doe', '25 Health Science Drive', 'Stony Brook', 'New York', '11790', '(555) 555-5514', '(555) 555-5451', 'False', '01-Jan-81 12:00:00 AM', 'False', 'UnitedHealthCare', '333-455553-332', '01-Dec-18 12:00:00 AM', 'Heart Exam.')
+INSERT INTO [Appointment] ([Id], [Name], [Address], [City], [State], [ZipCode], [HomePhone], [CellPhone], [AllowTextContact], [PatientBirthDate], [IsNewPatient], [InsuranceProvider], [MemberNumber], [AppointmentDate], [ReasonForAppointment]) VALUES (

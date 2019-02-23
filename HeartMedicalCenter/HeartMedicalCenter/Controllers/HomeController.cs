@@ -75,7 +75,7 @@ namespace kchalupa.Web.HeartMedicalCenter.Controllers
         m_entities.Appointments.Add(appointment);
         m_entities.SaveChanges();
 
-        return Redirect("Confirmation");
+        return RedirectToAction("Confirmation", appointment);
       }
       else
       {

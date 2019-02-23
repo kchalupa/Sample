@@ -1,7 +1,14 @@
-﻿
+﻿@model Appointment
+
 @{
-    ViewBag.Title = "Confirmation";
+  ViewBag.Title = "Confirmation";
 }
 
 <h2>Confirmation</h2>
 
+<p>Appointment: '@Model.Id', '@Model.Name', '@Model.Address', '@Model.City', '@Model.State', '@Model.ZipCode', '@Model.HomePhone', '@Model.CellPhone', '@Model.AllowTextContact', '@Model.PatientBirthDate', '@Model.IsNewPatient', '@Model.InsuranceProvider', '@Model.MemberNumber', '@Model.AppointmentDate', '@Model.ReasonForAppointment'</p>
+
+@if (Model.IsNewPatient)
+{
+  <p>Patient History: '@Model.PatientHistory.Conditions', '@Model.PatientHistory.Medications', '@Model.PatientHistory.Allergies', '@Model.PatientHistory.Physicians'</p>
+}
